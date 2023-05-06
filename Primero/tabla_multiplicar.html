@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<h1>TABLA DE MULTIPLICAR</h1>
+		<script>
+			function saltarLinea() {
+				document.write("<br>");
+				document.write("<br>");
+				document.write("<br>");
+			}
+			function imprimir(frase) {
+				document.write(frase);
+				saltarLinea();
+			}
+
+			let cont = 1,
+				eleccion = parseInt(
+					prompt("Ingrese el numero del que quiere la tabla ")
+				);
+                
+			while (cont <= 10) {
+				imprimir(eleccion * cont);
+				cont++;
+			}
+		</script>
+	</body>
+</html>

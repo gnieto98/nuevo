@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>PAINT</title>
+	</head>
+	<body>
+		<canvas width="600" height="400"></canvas>
+
+		<script>
+			let pantalla = document.querySelector("canvas");
+			let pincel = pantalla.getContext("2d");
+
+			pincel.fillStyle = "grey";
+			pincel.fillRect(0, 0, 600, 400);
+
+			let puedoDibujar = false; //variable para detectar si el mouse está oprimido
+			let colores = ["red", "green", "blue"];
+			let c = 2; //contador para los colores en general
+
+			function habilitarDibujar() {
+				//se habilita dibujar cuando es llamada más abajo
+				puedoDibujar = true;
+			}
+
+			function deshabilitarDibujar() {
+				//se deshabilita
+				puedoDibujar = false;
+			}
+
+			function dibujarCuadrados(color) {
+				//dibuja la paleta de colores
+				let x = 0,
+					y = 0;
+				for (let i = 0; i < color.length; i++) {
+					pincel.fillStyle = color[i];
+					pincel.fillRect(x, y, 50, 50);
+					/* pincel.strokeStyle = "black";
+					pincel.strokeRect(x, y, 50, 50); */
+					x = x + 50;
+				}
+			}
+
+			function cambiarColor(evento) {
+				//se cambia el color cambiando el indice c
+				let x = evento.pageX - pantalla.offsetLeft;
+				let y = evento.pageY - pantalla.offsetTop;
+				if (x < 50 && y < 50) {
+					c = 0;
+				} else if (x < 100 && y < 50) {
+					c = 1;
+				} else if (x < 150 && y < 50) {
+					c = 2;
+				}
+			}
+
+			function puedeDibujar(x, y) {
+				//se evalua si el mouse está sobre la paleta de colores y de ser así, se deshabilita
+				if (x >= 0 && x <= 155 && y >= 0 && y <= 55) {
+					return false;
+				} else {
+					return true;
+				}
+			}
+
+			function ubicacion(evento) {
+				//el corazón del programa, aquí se evalúa la posición al mover el mouse
+				let x = evento.pageX - pantalla.offsetLeft;
+				let y = evento.pageY - pantalla.offsetTop;
+				if (puedeDibujar(x, y)) {
+					dibujarCirculo(x, y);
+				}
+			}
+
+			function dibujarCirculo(x, y) {
+				//da el circulo con el que dibujaremos
+				if (puedoDibujar) {
+					pincel.fillStyle = colores[c];
+					pincel.beginPath();
+					pincel.arc(x, y, 5, 0, 2 * 3.14);
+					pincel.fill();
+				}
+			}
+
+			pantalla.onmousemove = ubicacion; //detecta el movimiento del mouse
+
+			dibujarCuadrados(colores); //Dibuja la paleta
+
+			pantalla.onmousedown = habilitarDibujar; //habilita dibujar cuando oprime el mouse
+
+			pantalla.onmouseup = deshabilitarDibujar; //deshabilita dibujar cuando oprime el mouse
+
+			pantalla.onclick = cambiarColor;
+		</script>
+	</body>
+</html>

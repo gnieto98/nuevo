@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>ESTRELLAS</title>
+	</head>
+	<body>
+		<script>
+			function saltarLinea() {
+				document.write("<br>");
+			}
+
+			function imprimir(frase) {
+				document.write(frase);
+				saltarLinea();
+			}
+
+			for (let l = 0; l < 3; l++) {
+				for (let c = 0; c < 10; c++) {
+					document.write("*");
+				}
+				saltarLinea();
+			}
+
+			imprimir("Fin");
+		</script>
+	</body>
+</html>
